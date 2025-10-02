@@ -15,8 +15,12 @@ describe('EventServiceController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(eventServiceController.getHello()).toBe('Hello World!');
+    it('should return health status', () => {
+      expect(eventServiceController.getHealth()).toEqual({
+        status: 'ok',
+        service: 'Event Service',
+        timestamp: expect.any(String),
+      });
     });
   });
 });

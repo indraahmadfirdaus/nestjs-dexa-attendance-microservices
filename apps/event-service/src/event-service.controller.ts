@@ -5,8 +5,8 @@ import { EventServiceService } from './event-service.service';
 export class EventServiceController {
   constructor(private readonly eventServiceService: EventServiceService) {}
 
-  @Get()
-  getHello(): string {
-    return this.eventServiceService.getHello();
+  @Get('health')
+  getHealth() {
+    return this.eventServiceService.getHealth();
   }
 }

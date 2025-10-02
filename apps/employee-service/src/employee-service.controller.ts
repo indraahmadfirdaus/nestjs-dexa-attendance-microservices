@@ -5,8 +5,8 @@ import { EmployeeServiceService } from './employee-service.service';
 export class EmployeeServiceController {
   constructor(private readonly employeeServiceService: EmployeeServiceService) {}
 
-  @Get()
-  getHello(): string {
-    return this.employeeServiceService.getHello();
+  @Get('health')
+  getHealth() {
+    return this.employeeServiceService.getHealth();
   }
 }

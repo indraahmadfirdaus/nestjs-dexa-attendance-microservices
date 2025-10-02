@@ -8,11 +8,11 @@ export class PrismaEventsService
 {
   async onModuleInit() {
     await this.$connect();
-    console.log('✅ Connected to Events Database');
+    console.log('Connected to Events Database');
   }
 
   async onModuleDestroy() {
     await this.$disconnect();
-    console.log('❌ Disconnected from Events Database');
+    console.log('Disconnected from Events Database');
   }
 }

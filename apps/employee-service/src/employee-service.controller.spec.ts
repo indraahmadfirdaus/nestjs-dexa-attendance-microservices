@@ -15,8 +15,13 @@ describe('EmployeeServiceController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(employeeServiceController.getHello()).toBe('Hello World!');
+    it('should return "Healthy"', () => {
+      expect(employeeServiceController.getHealth()).toEqual({
+        status: 'ok',
+        service: 'Employee Service',
+        timestamp: expect.any(String),
+        database: 'connected',
+      });
     });
   });
 });

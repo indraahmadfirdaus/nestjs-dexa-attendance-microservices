@@ -8,11 +8,11 @@ export class PrismaMainService
 {
   async onModuleInit() {
     await this.$connect();
-    console.log('✅ Connected to Main Database');
+    console.log('Connected to Main Database');
   }
 
   async onModuleDestroy() {
     await this.$disconnect();
-    console.log('❌ Disconnected from Main Database');
+    console.log('Disconnected from Main Database');
   }
 }
