@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "build": "nest build",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/apps/gateway/main",
+    
+    "start:gateway": "nest start gateway --watch",
+    "start:auth": "nest start auth-service --watch",
+    "start:employee": "nest start employee-service --watch",
+    "start:attendance": "nest start attendance-service --watch",
+    "start:event": "nest start event-service --watch",
+    
+    "prisma:generate": "npx prisma generate --schema=prisma/main/schema.prisma && npx prisma generate --schema=prisma/events/schema.prisma",
+    "prisma:migrate:main": "npx prisma migrate dev --schema=prisma/main/schema.prisma",
+    "prisma:migrate:events": "npx prisma migrate dev --schema=prisma/events/schema.prisma",
+    "prisma:studio:main": "npx prisma studio --schema=prisma/main/schema.prisma",
+    "prisma:studio:events": "npx prisma studio --schema=prisma/events/schema.prisma"
+  }
+}
