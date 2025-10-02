@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres-main:
+    image: postgres:15-alpine
+    container_name: attendance-postgres-main
+    environment:
+      POSTGRES_DB: attendance_main
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_main_data:/var/lib/postgresql/data
+    networks:
+      - attendance-network
+
+  postgres-events:
+    image: postgres:15-alpine
+    container_name: attendance-postgres-events
+    environment:
+      POSTGRES_DB: attendance_events
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_events_data:/var/lib/postgresql/data
+    networks:
+      - attendance-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: attendance-redis
+    ports:
+      - "6378:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - attendance-network
+
+volumes:
+  postgres_main_data:
+  postgres_events_data:
+  redis_data:
+
+networks:
+  attendance-network:
+    driver: bridge
