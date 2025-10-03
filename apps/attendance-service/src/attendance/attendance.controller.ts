@@ -11,7 +11,7 @@ import { AttendanceService } from './attendance.service';
 import { ClockInDto, ClockOutDto, QueryAttendanceDto } from './dto';
 import { JwtAuthGuard, Roles, RolesGuard, CurrentUser } from '@libs/common';
 
-@Controller('attendance')
+@Controller('')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}

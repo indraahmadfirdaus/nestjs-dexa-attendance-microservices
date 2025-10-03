@@ -11,7 +11,7 @@ import { AuthServiceService } from './auth-service.service';
 import { RegisterDto, LoginDto, ChangePasswordDto } from './dto';
 import { JwtAuthGuard, CurrentUser, Public } from '@libs/common';
 
-@Controller('auth')
+@Controller('')
 export class AuthServiceController {
   constructor(private readonly authService: AuthServiceService) {}
 

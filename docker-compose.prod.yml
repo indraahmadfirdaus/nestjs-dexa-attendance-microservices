@@ -203,7 +203,7 @@ services:
       - "traefik.http.routers.event-ws.entrypoints=websecure"
       - "traefik.http.routers.event-ws.tls.certresolver=letsencrypt"
       - "traefik.http.routers.event-ws.service=event-ws"
-      - "traefik.http.services.event-ws.loadbalancer.server.port=3004"
+      - "traefik.http.services.event-ws.loadbalancer.server.port=3005"
 
 volumes:
   postgres_main_data:
