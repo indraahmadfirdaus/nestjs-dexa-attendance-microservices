@@ -39,7 +39,7 @@ COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/prisma ./prisma
 
 # Expose port
-EXPOSE 3002
+EXPOSE 3001
 
 # Start
 CMD ["node", "dist/apps/auth-service/main"]

@@ -104,7 +104,7 @@ services:
       - "traefik.http.routers.auth.rule=Host(`${DOMAIN}`) && PathPrefix(`/api/auth`)"
       - "traefik.http.routers.auth.entrypoints=websecure"
       - "traefik.http.routers.auth.tls.certresolver=letsencrypt"
-      - "traefik.http.services.auth.loadbalancer.server.port=3002"
+      - "traefik.http.services.auth.loadbalancer.server.port=3001"
       - "traefik.http.middlewares.auth-stripprefix.stripprefix.prefixes=/api/auth"
       - "traefik.http.routers.auth.middlewares=auth-stripprefix"
 
@@ -141,7 +141,7 @@ services:
       - "traefik.http.routers.employee.rule=Host(`${DOMAIN}`) && (PathPrefix(`/api/employees`) || PathPrefix(`/api/profile`))"
       - "traefik.http.routers.employee.entrypoints=websecure"
       - "traefik.http.routers.employee.tls.certresolver=letsencrypt"
-      - "traefik.http.services.employee.loadbalancer.server.port=3003"
+      - "traefik.http.services.employee.loadbalancer.server.port=3002"
       - "traefik.http.middlewares.employee-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.employee.middlewares=employee-stripprefix"
 
@@ -167,7 +167,7 @@ services:
       - "traefik.http.routers.attendance.rule=Host(`${DOMAIN}`) && PathPrefix(`/api/attendance`)"
       - "traefik.http.routers.attendance.entrypoints=websecure"
       - "traefik.http.routers.attendance.tls.certresolver=letsencrypt"
-      - "traefik.http.services.attendance.loadbalancer.server.port=3004"
+      - "traefik.http.services.attendance.loadbalancer.server.port=3003"
       - "traefik.http.middlewares.attendance-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.attendance.middlewares=attendance-stripprefix"
 
@@ -195,13 +195,15 @@ services:
       - "traefik.http.routers.event.rule=Host(`${DOMAIN}`) && (PathPrefix(`/api/audit-logs`) || PathPrefix(`/api/notifications`) || PathPrefix(`/api/events`))"
       - "traefik.http.routers.event.entrypoints=websecure"
       - "traefik.http.routers.event.tls.certresolver=letsencrypt"
-      - "traefik.http.services.event.loadbalancer.server.port=3005"
+      - "traefik.http.routers.event.service=event"
+      - "traefik.http.services.event.loadbalancer.server.port=3004"
       - "traefik.http.middlewares.event-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.event.middlewares=event-stripprefix"
       - "traefik.http.routers.event-ws.rule=Host(`${DOMAIN}`) && PathPrefix(`/notifications`)"
       - "traefik.http.routers.event-ws.entrypoints=websecure"
       - "traefik.http.routers.event-ws.tls.certresolver=letsencrypt"
-      - "traefik.http.services.event-ws.loadbalancer.server.port=3005"
+      - "traefik.http.routers.event-ws.service=event-ws"
+      - "traefik.http.services.event-ws.loadbalancer.server.port=3004"
 
 volumes:
   postgres_main_data:

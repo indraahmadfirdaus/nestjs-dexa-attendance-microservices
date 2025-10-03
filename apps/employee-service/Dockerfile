@@ -26,6 +26,6 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/prisma ./prisma
 
-EXPOSE 3003
+EXPOSE 3002
 
 CMD ["node", "dist/apps/employee-service/main"]
