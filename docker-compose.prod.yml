@@ -127,7 +127,7 @@ services:
       MINIO_USE_SSL: "false"
       MINIO_PUBLIC_BASE_URL: https://${DOMAIN}
       MINIO_PUBLIC_PREFIX: /files
-      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-attendance-photos}
       USE_GATEWAY: "true"
       GATEWAY_URL: https://${DOMAIN}
     depends_on:
