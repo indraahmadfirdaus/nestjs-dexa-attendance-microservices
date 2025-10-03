@@ -89,6 +89,17 @@ export class MinioService implements OnModuleInit {
     const useSSL = this.configService.get<string>('MINIO_USE_SSL') === 'true';
     const protocol = useSSL ? 'https' : 'http';
 
+    const publicBaseUrl = this.configService.get<string>('MINIO_PUBLIC_BASE_URL');
+    const publicPrefix = this.configService.get<string>('MINIO_PUBLIC_PREFIX') || '';
+
+    if (publicBaseUrl) {
+      const base = publicBaseUrl.replace(/\/+$/, '');
+      const prefix = publicPrefix
+        ? '/' + publicPrefix.replace(/^\/+|\/+$/g, '')
+        : '';
+      return `${base}${prefix}/${this.bucketName}/${fileName}`;
+    }
+
     return `${protocol}://${endpoint}:${port}/${this.bucketName}/${fileName}`;
   }
 

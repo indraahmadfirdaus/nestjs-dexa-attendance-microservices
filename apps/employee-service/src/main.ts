@@ -16,10 +16,6 @@ async function bootstrap() {
   // Enable CORS
   app.enableCors();
 
-  app.useStaticAssets(join(__dirname, '..', '..', '..', 'uploads'), {
-    prefix: '/uploads/',
-  });
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
