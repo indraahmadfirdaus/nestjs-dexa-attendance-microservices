@@ -1,7 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { BullModule } from '@nestjs/bull';
+import { PrismaEventsModule } from '@libs/prisma-events';
+import { PrismaMainModule } from '@libs/prisma-main';
 import { EventServiceController } from './event-service.controller';
 import { EventServiceService } from './event-service.service';
+import { AuditModule } from './audit/audit.module';
+import { NotificationModule } from './notification/notification.module';
+import { EventProcessorModule } from './processor/event-processor.module';
 
 @Module({
   imports: [
@@ -9,6 +15,21 @@ import { EventServiceService } from './event-service.service';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    BullModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        redis: {
+          host: configService.get('REDIS_HOST'),
+          port: configService.get('REDIS_PORT'),
+        },
+      }),
+    }),
+    PrismaEventsModule,
+    PrismaMainModule,
+    AuditModule,
+    NotificationModule,
+    EventProcessorModule,
   ],
   controllers: [EventServiceController],
   providers: [EventServiceService],
