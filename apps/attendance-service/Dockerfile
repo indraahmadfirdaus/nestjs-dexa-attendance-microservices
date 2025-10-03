@@ -12,7 +12,7 @@ COPY prisma ./prisma
 
 RUN npm ci
 RUN npx prisma generate --schema=./prisma/main/schema.prisma
-RUN npm run build attendance:service
+RUN npm run build:attendance
 
 FROM node:18-alpine
 
