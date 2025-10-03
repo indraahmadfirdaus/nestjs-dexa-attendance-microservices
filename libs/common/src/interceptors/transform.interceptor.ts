@@ -27,6 +27,7 @@ export class TransformInterceptor<T>
         statusCode: context.switchToHttp().getResponse().statusCode,
         message: data?.message || 'Success',
         data: data?.data !== undefined ? data.data : data,
+        meta: data?.meta !== undefined ? data.meta : {},
         timestamp: new Date().toISOString(),
       })),
     );
