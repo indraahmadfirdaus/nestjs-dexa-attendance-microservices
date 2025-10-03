@@ -125,6 +125,9 @@ services:
       MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
       MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
       MINIO_USE_SSL: "false"
+      MINIO_PUBLIC_BASE_URL: https://${DOMAIN}
+      MINIO_PUBLIC_PREFIX: /files
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME}
       USE_GATEWAY: "true"
       GATEWAY_URL: https://${DOMAIN}
     depends_on:
