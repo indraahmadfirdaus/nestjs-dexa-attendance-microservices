@@ -6,6 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "build:gateway": "nest build gateway",
+    "build:auth": "nest build auth-service",
+    "build:employee": "nest build employee-service",
+    "build:attendance": "nest build attendance-service",
+    "build:event": "nest build event-service",
+    "build:all": "concurrently \"npm:build:gateway\" \"npm:build:auth\" \"npm:build:employee\" \"npm:build:attendance\" \"npm:build:event\"",
     "start:gateway": "nest start gateway --watch",
     "start:auth": "nest start auth-service --watch",
     "start:employee": "nest start employee-service --watch",
