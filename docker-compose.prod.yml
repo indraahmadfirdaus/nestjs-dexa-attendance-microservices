@@ -199,7 +199,7 @@ services:
       - "traefik.http.services.event.loadbalancer.server.port=3004"
       - "traefik.http.middlewares.event-stripprefix.stripprefix.prefixes=/api"
       - "traefik.http.routers.event.middlewares=event-stripprefix"
-      - "traefik.http.routers.event-ws.rule=Host(`${DOMAIN}`) && PathPrefix(`/notifications`)"
+      - "traefik.http.routers.event-ws.rule=Host(`${DOMAIN}`) && PathPrefix(`/socket.io`)"
       - "traefik.http.routers.event-ws.entrypoints=websecure"
       - "traefik.http.routers.event-ws.tls.certresolver=letsencrypt"
       - "traefik.http.routers.event-ws.service=event-ws"
