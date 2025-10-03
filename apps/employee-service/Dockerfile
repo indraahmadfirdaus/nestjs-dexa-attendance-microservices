@@ -12,7 +12,7 @@ COPY prisma ./prisma
 
 RUN npm ci
 RUN npx prisma generate --schema=./prisma/main/schema.prisma
-RUN npm run build employee-service
+RUN npm run build employee:service
 
 FROM node:18-alpine
 

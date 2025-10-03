@@ -13,7 +13,7 @@ COPY prisma ./prisma
 RUN npm ci
 RUN npx prisma generate --schema=./prisma/main/schema.prisma
 RUN npx prisma generate --schema=./prisma/events/schema.prisma
-RUN npm run build event-service
+RUN npm run build event:service
 
 FROM node:18-alpine
 

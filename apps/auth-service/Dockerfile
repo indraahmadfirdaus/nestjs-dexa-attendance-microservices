@@ -19,7 +19,7 @@ RUN npm ci
 RUN npx prisma generate --schema=./prisma/main/schema.prisma
 
 # Build
-RUN npm run build auth-service
+RUN npm run build auth:service
 
 # Production stage
 FROM node:18-alpine
