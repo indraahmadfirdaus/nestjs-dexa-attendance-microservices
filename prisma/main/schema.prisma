@@ -35,9 +35,19 @@ model Attendance {
   id        String    @id @default(uuid())
   userId    String    @map("user_id")
   date      DateTime  @db.Date
+  
   clockIn   DateTime  @map("clock_in")
+  clockInLatitude  Float?  @map("clock_in_latitude")
+  clockInLongitude Float?  @map("clock_in_longitude")
+  clockInAddress   String? @map("clock_in_address")
+  
   clockOut  DateTime? @map("clock_out")
+  clockOutLatitude  Float?  @map("clock_out_latitude")
+  clockOutLongitude Float?  @map("clock_out_longitude")
+  clockOutAddress   String? @map("clock_out_address")
+  
   status    AttendanceStatus @default(PRESENT)
+  notes     String?
   
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
@@ -51,4 +61,6 @@ model Attendance {
 enum AttendanceStatus {
   PRESENT
   ABSENT
+  LATE
+  HALF_DAY
 }

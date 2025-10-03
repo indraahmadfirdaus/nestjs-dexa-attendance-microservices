@@ -18,7 +18,11 @@
     "prisma:generate": "npx prisma generate --schema=prisma/main/schema.prisma && npx prisma generate --schema=prisma/events/schema.prisma",
     "prisma:studio:main": "npx prisma studio --schema=prisma/main/schema.prisma",
     "prisma:studio:events": "npx prisma studio --schema=prisma/events/schema.prisma --port 5556",
-    "seed:main": "ts-node prisma/main/seed.ts"
+    "seed:main": "ts-node prisma/main/seed.ts",
+    "prisma:migrate:new:main": "npx prisma migrate dev --create-only --schema=prisma/main/schema.prisma",
+    "prisma:migrate:new:events": "npx prisma migrate dev --create-only --schema=prisma/events/schema.prisma",
+    "prisma:migrate:deploy:main": "npx prisma migrate deploy --schema=prisma/main/schema.prisma",
+    "prisma:migrate:deploy:events": "npx prisma migrate deploy --schema=prisma/events/schema.prisma"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",

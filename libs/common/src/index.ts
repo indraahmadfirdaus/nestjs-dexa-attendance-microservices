@@ -10,3 +10,4 @@ export * from './utils';
 export * from './strategies';
 export * from './auth';
 export * from './minio';
+export * from './geocoding';
