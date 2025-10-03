@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma/client-main"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  position  String
+  phone     String?
+  photoUrl  String?  @map("photo_url")
+  role      Role     @default(EMPLOYEE)
+  
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  
+  attendances Attendance[]
+  
+  @@map("users")
+}
+
+enum Role {
+  EMPLOYEE
+  ADMIN
+}
+
+model Attendance {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  date      DateTime  @db.Date
+  
+  clockIn   DateTime  @map("clock_in")
+  clockInLatitude  Float?  @map("clock_in_latitude")
+  clockInLongitude Float?  @map("clock_in_longitude")
+  clockInAddress   String? @map("clock_in_address")
+  
+  clockOut  DateTime? @map("clock_out")
+  clockOutLatitude  Float?  @map("clock_out_latitude")
+  clockOutLongitude Float?  @map("clock_out_longitude")
+  clockOutAddress   String? @map("clock_out_address")
+  
+  status    AttendanceStatus @default(PRESENT)
+  notes     String?
+  
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, date])
+  @@map("attendances")
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  HALF_DAY
+}

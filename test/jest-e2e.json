@@ -1,0 +1,21 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@app/common": "<rootDir>/../libs/common/src",
+    "@app/common/(.*)": "<rootDir>/../libs/common/src/$1",
+    "@app/prisma-events": "<rootDir>/../libs/prisma-events/src",
+    "@app/prisma-events/(.*)": "<rootDir>/../libs/prisma-events/src/$1",
+    "@app/prisma-main": "<rootDir>/../libs/prisma-main/src",
+    "@app/prisma-main/(.*)": "<rootDir>/../libs/prisma-main/src/$1"
+  }
+}
