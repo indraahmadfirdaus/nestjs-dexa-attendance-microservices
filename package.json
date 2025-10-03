@@ -17,7 +17,8 @@
     "docker:logs": "docker-compose logs -f",
     "prisma:generate": "npx prisma generate --schema=prisma/main/schema.prisma && npx prisma generate --schema=prisma/events/schema.prisma",
     "prisma:studio:main": "npx prisma studio --schema=prisma/main/schema.prisma",
-    "prisma:studio:events": "npx prisma studio --schema=prisma/events/schema.prisma --port 5556"
+    "prisma:studio:events": "npx prisma studio --schema=prisma/events/schema.prisma --port 5556",
+    "seed:main": "ts-node prisma/main/seed.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
@@ -37,9 +38,11 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "ioredis": "^5.8.0",
+    "minio": "^8.0.6",
     "multer": "^2.0.2",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
     "prisma": "^6.16.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
@@ -55,9 +58,11 @@
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
+    "@types/minio": "^7.1.1",
     "@types/multer": "^2.0.0",
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
+    "@types/passport-local": "^1.0.38",
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^11.0.0",
     "concurrently": "^9.2.1",

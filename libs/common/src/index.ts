@@ -7,3 +7,6 @@ export * from './interceptors';
 export * from './dto';
 export * from './events';
 export * from './utils';
+export * from './strategies';
+export * from './auth';
+export * from './minio';
