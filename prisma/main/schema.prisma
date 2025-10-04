@@ -17,6 +17,7 @@ model User {
   phone     String?
   photoUrl  String?  @map("photo_url")
   role      Role     @default(EMPLOYEE)
+  isDeleted Boolean  @default(false) @map("is_deleted")
   
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

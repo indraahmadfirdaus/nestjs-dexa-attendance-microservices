@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { AttendanceService } from './attendance.service';
 import { ClockInDto, ClockOutDto, QueryAttendanceDto } from './dto';
-import { JwtAuthGuard, Roles, RolesGuard, CurrentUser } from '@libs/common';
+import { JwtAuthGuard, Roles, RolesGuard, CurrentUser, Public } from '@libs/common';
 
 @Controller('attendance')
 @UseGuards(JwtAuthGuard, RolesGuard)

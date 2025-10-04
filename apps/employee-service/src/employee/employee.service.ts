@@ -3,6 +3,7 @@ import {
   NotFoundException,
   ConflictException,
   Logger,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -23,9 +24,18 @@ export class EmployeeService {
   async create(createEmployeeDto: CreateEmployeeDto, createdBy: string) {
     const { email, password, name, position, phone, photoUrl } = createEmployeeDto;
 
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email },
-    });
+    const [existingUser, deletedUser] = await Promise.all([
+      this.prisma.user.findUnique({
+        where: { email },
+      }),
+      this.prisma.user.findUnique({
+        where: { email, isDeleted: true },
+      }),
+    ]);
+
+    if (deletedUser) {
+      throw new BadRequestException('This user is inactive, please contact admin');
+    }
 
     if (existingUser) {
       throw new ConflictException('Email already exists');
@@ -67,14 +77,14 @@ export class EmployeeService {
       timestamp: new Date(),
     });
 
-    return employee;
+    return { ...employee, isDeleted: false };
   }
 
   async findAll(queryDto: QueryEmployeeDto): Promise<PaginatedResult<any>> {
     const { page, limit, search, position, role } = queryDto;
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+    const where: any = { isDeleted: false };
 
     if (search) {
       where.OR = [
@@ -115,7 +125,7 @@ export class EmployeeService {
     });
 
     return {
-      data: employees,
+      data: employees.map((e) => ({ ...e, isDeleted: false })),
       meta: {
         page,
         limit,
@@ -128,16 +138,7 @@ export class EmployeeService {
   async findOne(id: string) {
     const employee = await this.prisma.user.findUnique({
       where: { id },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        position: true,
-        phone: true,
-        photoUrl: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
+      include: {
         _count: {
           select: {
             attendances: true,
@@ -150,7 +151,19 @@ export class EmployeeService {
       throw new NotFoundException('Employee not found');
     }
 
-    return employee;
+    return {
+      id: employee.id,
+      email: employee.email,
+      name: employee.name,
+      position: employee.position,
+      phone: employee.phone,
+      photoUrl: employee.photoUrl,
+      role: employee.role,
+      isDeleted: employee.isDeleted ?? false,
+      createdAt: employee.createdAt,
+      updatedAt: employee.updatedAt,
+      _count: employee._count,
+    };
   }
 
   async update(id: string, updateEmployeeDto: UpdateEmployeeDto, updatedBy: string) {
@@ -200,7 +213,8 @@ export class EmployeeService {
       timestamp: new Date(),
     });
 
-    return updatedEmployee;
+    const latest = await this.prisma.user.findUnique({ where: { id } });
+    return { ...updatedEmployee, isDeleted: latest?.isDeleted ?? false };
   }
 
   async remove(id: string, deletedBy: string) {
@@ -212,11 +226,12 @@ export class EmployeeService {
       throw new NotFoundException('Employee not found');
     }
 
-    await this.prisma.user.delete({
+    await this.prisma.user.update({
       where: { id },
+      data: { isDeleted: true },
     });
 
-    this.logger.log(`Employee deleted: ${employee.email} by user ${deletedBy}`);
+    this.logger.log(`Employee soft-deleted: ${employee.email} by user ${deletedBy}`);
 
     await this.eventsQueue.add(EventPattern.EMPLOYEE_DELETED, {
       userId: employee.id,
@@ -228,7 +243,7 @@ export class EmployeeService {
     });
 
     return {
-      message: 'Employee deleted successfully',
+      message: 'Employee soft-deleted successfully',
     };
   }
 }
