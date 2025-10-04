@@ -3,6 +3,7 @@ import {
   NotFoundException,
   ConflictException,
   Logger,
+  BadRequestException,
 } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -23,12 +24,21 @@ export class EmployeeService {
   async create(createEmployeeDto: CreateEmployeeDto, createdBy: string) {
     const { email, password, name, position, phone, photoUrl } = createEmployeeDto;
 
-    const existingUser = await this.prisma.user.findUnique({
-      where: { email, isDeleted: false },
-    });
+    const [existingUser, deletedUser] = await Promise.all([
+      this.prisma.user.findUnique({
+        where: { email },
+      }),
+      this.prisma.user.findUnique({
+        where: { email, isDeleted: true },
+      }),
+    ]);
 
     if (existingUser) {
       throw new ConflictException('Email already exists');
+    }
+
+    if (deletedUser) {
+      throw new BadRequestException('This user is inactive, please contact admin');
     }
 
     const hashedPassword = await HashUtil.hash(password);
