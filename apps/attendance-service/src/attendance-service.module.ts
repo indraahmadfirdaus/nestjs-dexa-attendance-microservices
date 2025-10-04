@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
 import { PrismaMainModule } from '@libs/prisma-main';
-import { AttendanceServiceController } from './attendance-service.controller';
-import { AttendanceServiceService } from './attendance-service.service';
 import { AttendanceModule } from './attendance/attendance.module';
 
 @Module({
@@ -25,7 +23,7 @@ import { AttendanceModule } from './attendance/attendance.module';
     PrismaMainModule,
     AttendanceModule,
   ],
-  controllers: [AttendanceServiceController],
-  providers: [AttendanceServiceService],
+  controllers: [],
+  providers: [],
 })
 export class AttendanceServiceModule {}

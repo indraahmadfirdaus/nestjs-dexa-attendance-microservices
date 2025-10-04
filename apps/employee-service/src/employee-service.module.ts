@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
 import { PrismaMainModule } from '@libs/prisma-main';
-import { EmployeeServiceController } from './employee-service.controller';
-import { EmployeeServiceService } from './employee-service.service';
 import { EmployeeModule } from './employee/employee.module';
 import { ProfileModule } from './profile/profile.module';
 
@@ -27,7 +25,7 @@ import { ProfileModule } from './profile/profile.module';
     EmployeeModule,
     ProfileModule,
   ],
-  controllers: [EmployeeServiceController],
-  providers: [EmployeeServiceService],
+  controllers: [],
+  providers: [],
 })
 export class EmployeeServiceModule {}

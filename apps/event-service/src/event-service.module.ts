@@ -3,8 +3,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
 import { PrismaEventsModule } from '@libs/prisma-events';
 import { PrismaMainModule } from '@libs/prisma-main';
-import { EventServiceController } from './event-service.controller';
-import { EventServiceService } from './event-service.service';
 import { AuditModule } from './audit/audit.module';
 import { NotificationModule } from './notification/notification.module';
 import { EventProcessorModule } from './processor/event-processor.module';
@@ -31,7 +29,7 @@ import { EventProcessorModule } from './processor/event-processor.module';
     NotificationModule,
     EventProcessorModule,
   ],
-  controllers: [EventServiceController],
-  providers: [EventServiceService],
+  controllers: [],
+  providers: [],
 })
 export class EventServiceModule {}
