@@ -24,7 +24,7 @@ export class EmployeeService {
     const { email, password, name, position, phone, photoUrl } = createEmployeeDto;
 
     const existingUser = await this.prisma.user.findUnique({
-      where: { email },
+      where: { email, isDeleted: false },
     });
 
     if (existingUser) {
