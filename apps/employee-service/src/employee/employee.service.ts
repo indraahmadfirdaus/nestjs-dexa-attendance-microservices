@@ -33,12 +33,12 @@ export class EmployeeService {
       }),
     ]);
 
-    if (existingUser) {
-      throw new ConflictException('Email already exists');
-    }
-
     if (deletedUser) {
       throw new BadRequestException('This user is inactive, please contact admin');
+    }
+
+    if (existingUser) {
+      throw new ConflictException('Email already exists');
     }
 
     const hashedPassword = await HashUtil.hash(password);
