@@ -45,7 +45,7 @@ Redis and BullMQ provide event streaming and background task processing. MinIO s
 
 ### Application Architecture (Production)
 
-![Application Architecture](./app.arch.png)
+![Application Architecture](./app-arch.png)
 
 ## Features
 
